@@ -31,14 +31,39 @@ def reverse_list(list, prev=nil)
   list
 end
 
+def is_infinite(list)
+  hare = list.next_node
+  tortoise = list
+  
+  while tortoise && hare && hare.next_node
+    hare = hare.next_node
+    hare = hare.next_node
+    tortoise = tortoise.next_node
+    
+    if hare == tortoise
+      return true
+    end
+  end
+  return false
+end
+
 node1 = LinkedListNode.new(10)
 node2 = LinkedListNode.new(20, node1)
 node3 = LinkedListNode.new(30, node2)
+node1.next_node = node3
 
-print_list(node3)
+#inf = is_infinite(node3)
+#puts "#{inf}"
 
-puts "------"
+if !is_infinite(node3)
+  print_list(node3)
 
-revlist = reverse_list(node3)
+  puts "------"
 
-print_list(revlist)
+  revlist = reverse_list(node3)
+
+  print_list(revlist)
+else
+  puts "Loop is infinite"
+end
+  
